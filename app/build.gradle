@@ -1,0 +1,50 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.ibaoger.app.xiaohongshubot'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.ibaoger.app.xiaohongshubot"
+        minSdk 23
+        // Android 11 及以上无法使用READ_EXTRERNAL_STORGE,WRITE_EXTERNAL_STORAGE权限
+        //noinspection ExpiredTargetSdkVersion
+        targetSdk 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    // UI Automator 2.0 (https://developer.android.com/training/testing/other-components/ui-automator?hl=zh-cn) minSdk>=18
+    androidTestImplementation('androidx.test.uiautomator:uiautomator:2.3.0')
+
+    // xLog 日志 (https://github.com/elvishew/xLog)
+    implementation 'com.elvishew:xlog:1.11.1'
+
+    // MySQL JDBC (https://mvnrepository.com/artifact/mysql/mysql-connector-java) 旧版本5.1.49与Android兼容性更好
+    implementation 'mysql:mysql-connector-java:5.1.49'
+}
